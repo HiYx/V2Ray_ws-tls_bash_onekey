@@ -31,7 +31,7 @@ Error="${Red}[错误]${Font}"
 Warning="${Red}[警告]${Font}"
 
 # 版本
-shell_version="1.2.3.3"
+shell_version="1.2.3.4"
 shell_mode="None"
 version_cmp="/tmp/version_cmp.tmp"
 xray_conf_dir="/usr/local/etc/xray"
@@ -643,7 +643,7 @@ acme() {
 
 xray_conf_add_tls() {
     cd ${xray_conf_dir} || exit
-    wget --no-check-certificate https://raw.githubusercontent.com/paniy/V2Ray_ws-tls_bash_onekey/xray/VLESS_tls/config.json -O config.json
+    wget --no-check-certificate https://raw.githubusercontent.com/paniy/Xray_bash_onekey/main/VLESS_tls/config.json -O config.json
     modify_path
     modify_alterid
     modify_inbound_port
@@ -652,7 +652,7 @@ xray_conf_add_tls() {
 
 xray_conf_add_xtls() {
     cd ${xray_conf_dir} || exit
-    wget --no-check-certificate https://raw.githubusercontent.com/paniy/V2Ray_ws-tls_bash_onekey/xray/VLESS_xtls/config.json -O config.json
+    wget --no-check-certificate https://raw.githubusercontent.com/paniy/Xray_bash_onekey/main/VLESS_xtls/config.json -O config.json
     modify_path
     modify_alterid
     modify_inbound_port
@@ -797,7 +797,7 @@ nginx_process_disabled() {
 #}
 
 acme_cron_update() {
-    wget -N -P /usr/bin/idleleo-xray --no-check-certificate "https://raw.githubusercontent.com/paniy/V2Ray_ws-tls_bash_onekey/xray/ssl_update.sh"
+    wget -N -P /usr/bin/idleleo-xray --no-check-certificate "https://raw.githubusercontent.com/paniy/Xray_bash_onekey/main/ssl_update.sh"
     if [[ $(crontab -l | grep -c "ssl_update.sh") -lt 1 ]]; then
         if [[ "${ID}" == "centos" ]]; then
             #        sed -i "/acme.sh/c 0 3 * * 0 \"/root/.acme.sh\"/acme.sh --cron --home \"/root/.acme.sh\" \
@@ -1122,7 +1122,7 @@ install_v2_xtls() {
 }
 
 update_sh() {
-    ol_version=$(curl -L -s https://raw.githubusercontent.com/paniy/V2Ray_ws-tls_bash_onekey/xray/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
+    ol_version=$(curl -L -s https://raw.githubusercontent.com/paniy/Xray_bash_onekey/main/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
     echo "$ol_version" >$version_cmp
     echo "$shell_version" >>$version_cmp
     if [[ "$shell_version" < "$(sort -rV $version_cmp | head -1)" ]]; then
@@ -1131,7 +1131,7 @@ update_sh() {
         case $update_confirm in
         [yY][eE][sS] | [yY])
             rm -f ${idleleo_commend_file}
-            wget -N --no-check-certificate -P ${idleleo_xray_dir} https://raw.githubusercontent.com/paniy/V2Ray_ws-tls_bash_onekey/xray/install.sh && chmod +x ${idleleo_xray_dir}/install.sh
+            wget -N --no-check-certificate -P ${idleleo_xray_dir} https://raw.githubusercontent.com/paniy/Xray_bash_onekey/main/install.sh && chmod +x ${idleleo_xray_dir}/install.sh
             ln -s ${idleleo_xray_dir}/install.sh ${idleleo_commend_file}
             echo -e "${OK} ${GreenBG} 更新完成 ${Font}"
             exit 0
